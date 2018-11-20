@@ -13,23 +13,23 @@ import {HttpClientModule} from '@angular/common/http';
 import {CoreModule} from './core/core.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    WelcomeComponent,
-    HomeComponent,
-    AboutUsComponent,
-    ContactUsComponent
-  ],
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    MomentModule,
-    CoreModule,
-    HttpClientModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        WelcomeComponent,
+        HomeComponent,
+        AboutUsComponent,
+        ContactUsComponent
+    ],
+    imports: [
+        AppRoutingModule,
+        BrowserModule,
+        MomentModule,
+        CoreModule,
+        HttpClientModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
