@@ -1,64 +1,88 @@
-<div class="container">
-<form [formGroup]="contactUsForm" (ngSubmit)="submitContactForm()">
-  <label for="name">Name</label>
-  <input formControlName="name" id="name" type="text" placeholder="Name"/>
-  <div>
-    <span *ngIf="(contactUsForm.controls['name'].dirty && contactUsForm.controls['name'].hasError('required')) || (contactUsForm.controls['name'].touched && contactUsForm.controls['name'].hasError('required'))">
-      Name is required
-    </span>
-    <span *ngIf="contactUsForm.controls['name'].dirty && contactUsForm.controls['name'].hasError('pattern')">
-      Invalid name. Please use only letters
-    </span>
-    <span *ngIf="contactUsForm.controls['name'].dirty && contactUsForm.controls['name'].hasError('minlength')">
-      Invalid name. Your name should be longer then 2 characters
-    </span>
-    <span *ngIf="contactUsForm.controls['name'].dirty && contactUsForm.controls['name'].hasError('maxlength')">
-      Invalid name. Your name should be shorter then 12 characters
-    </span>
-  </div>
+<div class="container contact-form ">
+    <form [formGroup]="contactUsForm" (ngSubmit)="submitContactForm()">
+        <h3>Contact Us</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input formControlName="name" class="form-control" id="name" type="text" placeholder="Name"/>
+                    <div>
+                        <span *ngIf="(contactUsForm.controls['name'].dirty && contactUsForm.controls['name'].hasError('required')) || (contactUsForm.controls['name'].touched && contactUsForm.controls['name'].hasError('required'))">
+                              Name is required
+                        </span>
+                        <span *ngIf="contactUsForm.controls['name'].dirty && contactUsForm.controls['name'].hasError('pattern')">
+                              Invalid name. Please use only letters
+                        </span>
+                        <span *ngIf="contactUsForm.controls['name'].dirty && contactUsForm.controls['name'].hasError('minlength')">
+                              Invalid name. Your name should be longer then 2 characters
+                        </span>
+                        <span *ngIf="contactUsForm.controls['name'].dirty && contactUsForm.controls['name'].hasError('maxlength')">
+                              Invalid name. Your name should be shorter then 12 characters
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="surname">Surname</label>
+                    <input formControlName="surname" class="form-control" id="surname" type="text"
+                           placeholder="Surname"/>
+                    <div>
+                        <span *ngIf="contactUsForm.controls['surname'].dirty && contactUsForm.controls['surname'].hasError('required') || (contactUsForm.controls['surname'].touched && contactUsForm.controls['surname'].hasError('required'))">
+                            Surname is required
+                        </span>
+                        <span *ngIf="contactUsForm.controls['surname'].dirty && contactUsForm.controls['surname'].hasError('pattern')">
+                            Invalid surname. Please use only letters
+                        </span>
+                        <span *ngIf="contactUsForm.controls['surname'].dirty && contactUsForm.controls['surname'].hasError('minlength')">
+                            Invalid surname. Your surname should be longer then 2 characters
+                        </span>
+                        <span *ngIf="contactUsForm.controls['surname'].dirty && contactUsForm.controls['surname'].hasError('maxlength')">
+                            Invalid surname. Your surname should be shorter then 12 characters
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input formControlName="email" class="form-control" id="email" type="email" placeholder="Email"/>
+                    <div>
+                        <span *ngIf="contactUsForm.controls['email'].dirty && contactUsForm.controls['email'].hasError('required') || (contactUsForm.controls['email'].touched && contactUsForm.controls['email'].hasError('required'))">
+                            Email field is required
+                        </span>
+                        <span *ngIf="contactUsForm.controls['email'].dirty && contactUsForm.controls['email'].hasError('pattern')">
+                            Invalid email
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div formArrayName="phones">
+                        <label for="phone">Phone</label>
+                        <div>
+                            <input class="form-control"
+                                   *ngFor="let phone of contactUsForm.get('phones').controls; let i = index"
+                                   formControlName="{{i}}"
+                                   id="phone" type="text" placeholder="Phone"/>
+                            <button type='button' class="addPhone mt-1" (click)="addPhoneControl()">+</button>
+                        </div>
+                    </div>
 
-  <label for="surname">Surname</label>
-  <input formControlName="surname" id="surname" type="text" placeholder="Surname"/>
-  <div>
-    <span *ngIf="contactUsForm.controls['surname'].dirty && contactUsForm.controls['surname'].hasError('required') || (contactUsForm.controls['surname'].touched && contactUsForm.controls['surname'].hasError('required'))">
-      Surname is required
-    </span>
-    <span *ngIf="contactUsForm.controls['surname'].dirty && contactUsForm.controls['surname'].hasError('pattern')">
-      Invalid surname. Please use only letters
-    </span>
-    <span *ngIf="contactUsForm.controls['surname'].dirty && contactUsForm.controls['surname'].hasError('minlength')">
-      Invalid surname. Your surname should be longer then 2 characters
-    </span>
-    <span *ngIf="contactUsForm.controls['surname'].dirty && contactUsForm.controls['surname'].hasError('maxlength')">
-      Invalid surname. Your surname should be shorter then 12 characters
-    </span>
-  </div>
-
-  <label for="email">Email</label>
-  <input formControlName="email" id="email" type="email" placeholder="Email"/>
-  <div>
-    <span *ngIf="contactUsForm.controls['email'].dirty && contactUsForm.controls['email'].hasError('required') || (contactUsForm.controls['surname'].touched && contactUsForm.controls['surname'].hasError('required'))">
-      Email field is required
-    </span>
-    <span *ngIf="contactUsForm.controls['email'].dirty && contactUsForm.controls['email'].hasError('pattern')">
-      Invalid email
-    </span>
-  </div>
-  <label for="phone">Phone</label>
-  <div formArrayName="phones">
-    <input *ngFor="let phone of contactUsForm.get('phones').controls; let i = index" formControlName="{{i}}" id="phone" type="text" placeholder="Phone"/>
-  </div>
-  <button type='button' (click)="addPhoneControl()">+</button>
-
-  <textarea formControlName="subject"  rows="8" cols="80">Type your text</textarea>
-  <div>
-    <span *ngIf="contactUsForm.controls['subject'].dirty && contactUsForm.controls['subject'].hasError('minlength')">
-      Please enter minimum 7 characters
-    </span>
-    <span *ngIf="contactUsForm.controls['subject'].dirty && contactUsForm.controls['subject'].hasError('required')">
-      Subject is required
-    </span>
-  </div>
-  <button>Send</button>
-</form>
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="btnSubmit" class="btnContact" value="Send Message"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea formControlName="subject" id="message" class="form-control" rows="10"></textarea>
+                    <div>
+                        <span *ngIf="contactUsForm.controls['subject'].dirty && contactUsForm.controls['subject'].hasError('required') ||(contactUsForm.controls['subject'].touched && contactUsForm.controls['subject'].hasError('required'))">
+                                Subject is required
+                        </span>
+                        <span *ngIf="contactUsForm.controls['subject'].dirty && contactUsForm.controls['subject'].hasError('minlength')">
+                                Please enter minimum 7 characters
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
